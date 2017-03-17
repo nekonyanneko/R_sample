@@ -8,3 +8,6 @@ y  <-b0+b1*x+e
 
 plot(x,y)
 
+## 線形回帰
+model<-lm(y~x)
+print(model)
