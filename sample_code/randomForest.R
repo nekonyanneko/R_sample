@@ -14,3 +14,9 @@ iris.test <- iris[-s,]
 model <- randomForest(Species ~ ., data=iris.train, ntree=500, proximity=TRUE)
 print(model)
 
+## テストデータで評価
+pred.model <- predict(model, newdata=iris.test, type='class')
+print(pred.model)
+
+## 混合行列の表示
+print(table(pred.model, iris.test[,5]))
