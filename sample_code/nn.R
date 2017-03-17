@@ -15,3 +15,6 @@ rock.nn <-
 # NNの可視化
 source("nn_plot.R")
 plot.nn(rock.nn)
+
+# ヘッセ行列の確認
+print(eigen(rock.nn$Hess, T)$value)
