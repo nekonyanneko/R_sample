@@ -7,6 +7,9 @@ This page is that provide the following.
 # Past schedule of private study meeting
 
 ```
+Let's start a study meeting. But just look at 
+[issue](https://github.com/nekonyanneko/R_sample/issues/8) before that.
+
 
 ## Schedule of study meeting
 Comming Soon.
