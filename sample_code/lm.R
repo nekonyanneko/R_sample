@@ -26,4 +26,3 @@ lines(as.matrix(new),A$fit[,3],col="red")
 
 lines(as.matrix(new),B$fit[,2],col="blue")
 lines(as.matrix(new),B$fit[,3],col="blue")
-
