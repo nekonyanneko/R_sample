@@ -10,3 +10,7 @@ s <- sample(n, n * 0.5)
 iris.train <- iris[s,]
 iris.test <- iris[-s,]
 
+## ランダムフォレストで学習
+model <- randomForest(Species ~ ., data=iris.train, ntree=500, proximity=TRUE)
+print(model)
+
