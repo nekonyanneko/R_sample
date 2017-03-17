@@ -1,4 +1,5 @@
 source("clear.R")
+library(MuMIn)
 
 ## シミュレーションデータの作成
 set.seed(0)
@@ -25,3 +26,9 @@ print("AIC:")
 print(AIC(model1))
 print(AIC(model2))
 print(AIC(model3))
+
+## MuMInで最適モデルの計算
+options(na.action = "na.fail")
+result.AIC <- dredge(model3, rank="AIC")  #変数の多いモデルを渡すこと
+print(result.AIC)
+
