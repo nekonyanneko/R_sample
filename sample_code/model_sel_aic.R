@@ -32,3 +32,6 @@ options(na.action = "na.fail")
 result.AIC <- dredge(model3, rank="AIC")  #変数の多いモデルを渡すこと
 print(result.AIC)
 
+## 最適モデルの抽出
+best.model <- get.models(result.AIC, subset = 1)[1]
+print(best.model)
