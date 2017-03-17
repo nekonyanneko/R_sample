@@ -20,3 +20,8 @@ model2 <- lm(y ~ x1 + x2)
 # Intercept + B1*x1 + B2*x2 + B1*B2*x3 + e
 model3 <- lm(y ~ x1*x2)
 
+## AICを計算
+print("AIC:")
+print(AIC(model1))
+print(AIC(model2))
+print(AIC(model3))
