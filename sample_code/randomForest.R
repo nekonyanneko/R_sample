@@ -30,3 +30,8 @@ varImpPlot(model)
 # 多次元尺度法で分類を可視化
 MDSplot(model, iris$Species, palette=rep(1, 3), pch=as.numeric(iris$Species))
 
+# 特徴量と分類の関係グラフ（どれだけ寄与しているか）
+par(mfrow = c(sqrt(nrow(model$importance)), sqrt(nrow(model$importance)))) 
+partialPlot(model, iris, Petal.Length, 'setosa')
+partialPlot(model, iris, Petal.Length, 'versicolor')
+partialPlot(model, iris, Petal.Length, 'virginica')
