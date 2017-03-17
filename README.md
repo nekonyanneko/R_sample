@@ -8,7 +8,7 @@ This page is that provide the following.
 
 ```
 
-### Schedule of study meeting
+## Schedule of study meeting
 Comming Soon.
 
 ```
@@ -18,7 +18,7 @@ Comming Soon.
 
 ```
 
-### Support or Contact
+## Support or Contact
 
 If you hope to conntact with me, please issue a ticket of [issue](https://github.com/nekonyanneko/R_sample/issues).
 Please you use ticket's label is "conntact".
