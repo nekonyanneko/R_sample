@@ -35,3 +35,16 @@ par(mfrow = c(sqrt(nrow(model$importance)), sqrt(nrow(model$importance))))
 partialPlot(model, iris, Petal.Length, 'setosa')
 partialPlot(model, iris, Petal.Length, 'versicolor')
 partialPlot(model, iris, Petal.Length, 'virginica')
+
+## ベストなmtryを探し最善の結果を出力
+tune <- tuneRF(iris.train[,-5],iris.train[,5],doBest=T)
+# テストデータで評価
+pred.tune <- predict(tune, newdata=iris.test, type='class')
+print(pred.tune)
+
+# modelとtuneのConfution Matrixを比較
+print("********* compare *********")
+print("[model] Confusion Matrix:")
+print(table(pred.model, iris.test[,5]))
+print("[tune] Confusion Matrix:")
+print(table(pred.tune, iris.test[,5]))
