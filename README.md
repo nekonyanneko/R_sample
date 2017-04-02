@@ -16,6 +16,7 @@ Comming Soon.
 
 ```
 # Schedule
+First Time 4/8(Saturday)13:00~
 
 # Paste
 
