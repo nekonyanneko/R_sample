@@ -17,8 +17,8 @@ print(model)
 ## 区間推定
 new<-data.frame(x=seq(min(x),max(x),0.1))
 
-A<-predict(model,new,se.fit=T,interval="confidence")    #推定平均の95%推定区間
-B<-predict(model,new,se.fit=T,interval="prediction")    #推定データの95%推定区間
+A<-predict(model,new,se.fit=T,interval="confidence")    #推定平均の95%推定区間(信頼区間)
+B<-predict(model,new,se.fit=T,interval="prediction")    #推定データの95%推定区間(予測区間)
 
 lines(as.matrix(new),A$fit[,1])
 lines(as.matrix(new),A$fit[,2],col="red")

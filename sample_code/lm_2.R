@@ -17,5 +17,5 @@ y <- Intercept + B1*x1 + B2*x2 + e
 model1 <- lm(y ~ x1)
 # Intercept + B1*x1 + B2*x2 + e
 model2 <- lm(y ~ x1 + x2)
-# Intercept + B1*x1 + B2*x2 + B1*B2*x3 + e
+# Intercept + B1*x1 + B2*x2 + B3*x1*x2 + e
 model3 <- lm(y ~ x1*x2)
