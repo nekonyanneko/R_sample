@@ -163,3 +163,16 @@ task = makeClusterTask(data = iris.train)
 mod = train("cluster.kmeans", task)
 newdata.pred = predict(mod, newdata = iris.test) %>% print()
 
+#################
+# 予測から情報を取得
+#################
+# 確率を出力するランダムフォレスト
+lrn = makeLearner("classif.randomForest", predict.type = "prob")
+mod = train(lrn, iris.task)
+pred = predict(mod, newdata = iris)
+# 予測値
+head(pred$data) %>% print()
+# getProbabilitiesで確率だけ取得
+head(getPredictionProbabilities(pred)) %>% print()
+# confusion matrix
+calculateConfusionMatrix(pred) %>% print()
