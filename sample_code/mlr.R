@@ -5,6 +5,8 @@ library(BBmisc)
 library(ggplot2)
 library(ParamHelpers)
 library(mlr)
+library(gbm)
+library(clue)
 data(iris)
 
 #################
@@ -79,5 +81,16 @@ summary(getTaskData(normalizeFeatures(cluster.task, method = "range")))
 ## （method="standardize"は平均0，分散1に正規化する）
 summary(getTaskData(normalizeFeatures(regr.task, method = "standardize")))
 
-
-
+#################
+# 学習器の生成
+#################
+# ランダムフォレストで確率を出力
+# （fix.factors.prediction=TRUEはファクタの水準数が学習データとテストデータで異なる場合に生じる問題をうまく処理してくれる）
+classif.lrn = makeLearner("classif.randomForest", predict.type = "prob", fix.factors.prediction = TRUE)
+classif.lrn %>% print()
+# 勾配ブースティングでハイパーパラメータを指定
+regr.lrn = makeLearner("regr.gbm", par.vals = list(n.trees = 500, interaction.depth = 3))
+regr.lrn %>% print()
+# クラスタ数5でK-means
+cluster.lrn = makeLearner("cluster.kmeans", centers = 5)
+cluster.lrn %>% print()
