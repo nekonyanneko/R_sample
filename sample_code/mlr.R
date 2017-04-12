@@ -48,8 +48,8 @@ cluster.task %>% print()
 #################
 # タスクの概要
 getTaskDesc(regr.task) %>% print()
-
-
+# タスクで使うデータ
+str(getTaskData(classif.task))
 
 
 
