@@ -140,4 +140,8 @@ mod %>% print()
 n = getTaskSize(bh.task)
 train.set = sample(n, size = n/3)
 train("regr.lm", bh.task, subset = train.set)
+# mlrは基本的に元のRオブジェクトをラップしたもの
+# 元のRオブジェクトを取得したい場合は以下の関数を使用する
+getLearnerModel(mod)
+
 
