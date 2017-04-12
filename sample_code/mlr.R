@@ -144,4 +144,14 @@ train("regr.lm", bh.task, subset = train.set)
 # 元のRオブジェクトを取得したい場合は以下の関数を使用する
 getLearnerModel(mod)
 
+#################
+# 予測
+#################
+# taskでデータを渡す例
+n = getTaskSize(bh.task)
+train.set = seq(1, n, by = 2)
+test.set = seq(2, n, by = 2)
+lrn = makeLearner("regr.gbm", n.trees = 100)
+mod = train(lrn, bh.task, subset = train.set)
+task.pred = predict(mod, task = bh.task, subset = test.set) %>% print()
 
