@@ -94,3 +94,16 @@ regr.lrn %>% print()
 # クラスタ数5でK-means
 cluster.lrn = makeLearner("cluster.kmeans", centers = 5)
 cluster.lrn %>% print()
+
+#################
+# 学習器へのアクセス
+#################
+# 設定済みハイパーパラメータ
+getHyperPars(cluster.lrn) %>% print()
+# 設定可能なハイパーパラメータ一覧
+getParamSet(cluster.lrn) %>% print()
+# ハイパーパラメータ一覧はLearnerを作成しなくても学習器名から取得できる
+getParamSet("classif.randomForest") %>% print()
+
+
+
