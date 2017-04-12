@@ -38,3 +38,8 @@ classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class")
 # classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")
 classif.task %>% print()
 
+# クラスタリング
+data(mtcars, package = "datasets")
+cluster.task = makeClusterTask(id = "mtcars", data = mtcars)
+cluster.task %>% print()
+
