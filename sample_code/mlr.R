@@ -43,3 +43,17 @@ data(mtcars, package = "datasets")
 cluster.task = makeClusterTask(id = "mtcars", data = mtcars)
 cluster.task %>% print()
 
+#################
+# タスクへのアクセス
+#################
+# タスクの概要
+getTaskDesc(regr.task) %>% print()
+
+
+
+
+
+
+
+
+
