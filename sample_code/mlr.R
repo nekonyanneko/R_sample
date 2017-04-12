@@ -155,3 +155,11 @@ lrn = makeLearner("regr.gbm", n.trees = 100)
 mod = train(lrn, bh.task, subset = train.set)
 task.pred = predict(mod, task = bh.task, subset = test.set) %>% print()
 
+# newdataでデータを渡す例
+n = nrow(iris)
+iris.train = iris[seq(1, n, by = 2), -5]
+iris.test = iris[seq(2, n, by = 2), -5]
+task = makeClusterTask(data = iris.train)
+mod = train("cluster.kmeans", task)
+newdata.pred = predict(mod, newdata = iris.test) %>% print()
+
