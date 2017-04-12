@@ -121,4 +121,13 @@ regr.lrn %>% print()
 regr.lrn = removeHyperPars(regr.lrn, c("n.trees", "interaction.depth"))
 regr.lrn %>% print()
 
+#################
+# 学習器を探す
+#################
+# 利用可能な学習器全部
+head(listLearners()) %>% print()
+# 確率が出力できる分類器だけ
+head(listLearners("classif", properties = "prob")) %>% print()
+
+
 
