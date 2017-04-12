@@ -127,7 +127,17 @@ regr.lrn %>% print()
 # 利用可能な学習器全部
 head(listLearners()) %>% print()
 # 確率が出力できる分類器だけ
-head(listLearners("classif", properties = "prob")) %>% print()
+head(listLearners("classif", properties = "prob"))
 
-
+#################
+# 学習を行う
+#################
+# 線形判別分析でirisを分類
+lrn = makeLearner("classif.lda")
+mod = train(lrn, iris.task)
+mod %>% print()
+# 学習に使うデータを指定できる
+n = getTaskSize(bh.task)
+train.set = sample(n, size = n/3)
+train("regr.lm", bh.task, subset = train.set)
 
