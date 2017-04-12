@@ -51,7 +51,7 @@ cluster.task %>% print()
 # タスクの概要
 getTaskDesc(regr.task) %>% print()
 # タスクで使うデータ
-str(getTaskData(classif.task))
+str(getTaskData(classif.task)) %>% print()
 # データの件数
 getTaskSize(classif.task) %>% print()
 # 特徴量の数
@@ -70,16 +70,16 @@ getTaskFormula(classif.task) %>% print()
 # タスクの修正や変更
 #################
 # データの一部だけ使う
-subsetTask(cluster.task, subset = 4:17)
+subsetTask(cluster.task, subset = 4:17) %>% print()
 # 定数値の特徴量を捨てる
-removeConstantFeatures(cluster.task)
+removeConstantFeatures(cluster.task) %>% print()
 # 定数値の特徴量を捨てる
-removeConstantFeatures(cluster.task)
+removeConstantFeatures(cluster.task) %>% print()
 # 変数の正規化
 ## （method="range"は値が区間[0, 1]に収まるようスケールする）
-summary(getTaskData(normalizeFeatures(cluster.task, method = "range")))
+summary(getTaskData(normalizeFeatures(cluster.task, method = "range"))) %>% print()
 ## （method="standardize"は平均0，分散1に正規化する）
-summary(getTaskData(normalizeFeatures(regr.task, method = "standardize")))
+summary(getTaskData(normalizeFeatures(regr.task, method = "standardize"))) %>% print()
 
 #################
 # 学習器の生成
@@ -105,5 +105,20 @@ getParamSet(cluster.lrn) %>% print()
 # ハイパーパラメータ一覧はLearnerを作成しなくても学習器名から取得できる
 getParamSet("classif.randomForest") %>% print()
 
+#################
+# 学習器の修正や変更
+#################
+## 学習器の識別子を設定
+surv.lrn = setLearnerId(classif.lrn, "CoxModel") %>% print()
+## 出力を確率からクラスラベルに変更
+classif.lrn = setPredictType(classif.lrn, "response") %>% print()
+## ハイパーパラメータの値を変更
+cluster.lrn = setHyperPars(cluster.lrn, centers = 4) %>% print()
+## ハイパーパラメータの値をデフォルト値にする
+regr.lrn %>% print()
+regr.lrn = setHyperPars(regr.lrn, interaction.depth = 4, n.trees = 1000)
+regr.lrn %>% print()
+regr.lrn = removeHyperPars(regr.lrn, c("n.trees", "interaction.depth"))
+regr.lrn %>% print()
 
 
