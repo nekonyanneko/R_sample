@@ -1,6 +1,9 @@
 source("clear.R")
 
 library(dplyr)
+library(BBmisc)
+library(ggplot2)
+library(ParamHelpers)
 library(mlr)
 data(iris)
 
@@ -18,3 +21,10 @@ r = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE)
 # 誤分類率
 r$aggr %>% print()
 
+#################
+# タスクの生成
+#################
+# 回帰
+data(BostonHousing, package = "mlbench")
+regr.task = makeRegrTask(id = "bh", data = BostonHousing, target = "medv")
+regr.task %>% print()
