@@ -28,3 +28,13 @@ r$aggr %>% print()
 data(BostonHousing, package = "mlbench")
 regr.task = makeRegrTask(id = "bh", data = BostonHousing, target = "medv")
 regr.task %>% print()
+
+# 分類
+data(BreastCancer, package = "mlbench")
+df = BreastCancer
+df$Id = NULL
+classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class")
+# positiveなクラスを自分で決めたい場合
+# classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")
+classif.task %>% print()
+
