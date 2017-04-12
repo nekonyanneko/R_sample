@@ -176,3 +176,19 @@ head(pred$data) %>% print()
 head(getPredictionProbabilities(pred)) %>% print()
 # confusion matrix
 calculateConfusionMatrix(pred) %>% print()
+
+#################
+# 判別閾値の変更
+#################
+# 決定木でソナー信号を分類
+lrn = makeLearner("classif.rpart", predict.type = "prob")
+mod = train(lrn, task = sonar.task)
+## デフォルト閾値は0.5
+pred1 = predict(mod, sonar.task)
+pred1$threshold %>% print()
+## 閾値を0.9に変更
+pred2 = setThreshold(pred1, 0.9)
+pred2$threshold %>% print()
+# 閾値変更前後のconfusion matrixを比較
+calculateConfusionMatrix(pred1) %>% print()
+calculateConfusionMatrix(pred2) %>% print()
