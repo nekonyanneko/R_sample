@@ -212,16 +212,15 @@ Fmeasure <-(2*Recall*Precision)/(Recall+Precision)
 # CV法
 # 再度、mlr到来
 ####
-> library(mlr)
-> library(kernlab)
-> data(spam)
-> task <- makeClassifTask(id="spam", data=spam, target="type")
-> learner <- makeLearner("classif.ksvm")
-> rdesc <- makeResampleDesc(method="CV", iters=10)
-> par.set <- makeParamSet(
-  +   makeDiscreteParam("C", values=2^(-2:2)),
-  +   makeDiscreteParam("sigma", values=2^(-2:2))
-  > )
-> ctrl <- makeTuneControlGrid()
-> res <- tuneParams("classif.ksvm", task=task, resampling=rdesc, par.set=par.set, control=ctrl)
+library(kernlab)
+data(spam)
+task <- makeClassifTask(id="spam", data=spam, target="type")
+learner <- makeLearner("classif.ksvm")
+rdesc <- makeResampleDesc(method="CV", iters=10)
+par.set <- makeParamSet(
+  makeDiscreteParam("C", values=2^(-2:2)),
+  makeDiscreteParam("sigma", values=2^(-2:2))
+  )
+ctrl <- makeTuneControlGrid()
+res <- tuneParams("classif.ksvm", task=task, resampling=rdesc, par.set=par.set, control=ctrl)
 
