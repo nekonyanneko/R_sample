@@ -192,3 +192,36 @@ pred2$threshold %>% print()
 # 閾値変更前後のconfusion matrixを比較
 calculateConfusionMatrix(pred1) %>% print()
 calculateConfusionMatrix(pred2) %>% print()
+
+####
+# モデル評価の便利なもの用意されているが、使い勝手が悪いように思える
+# ここでmlrの説明は終了とし、以下は評価についてmlrを用いず説明する
+####
+# accuracy,recall,precision,f値
+TP <- calculateConfusionMatrix(pred2)[[1]][1,1]
+FN <- calculateConfusionMatrix(pred2)[[1]][1,2]
+FP <- calculateConfusionMatrix(pred2)[[1]][2,1]
+TN <- calculateConfusionMatrix(pred2)[[1]][2,2]
+
+Accuracy <- (TP+TN)/(TP+FP+FN+TN)
+Precision <- TP/(TP+FP)
+Recall <- TP/(TP+FN)
+Fmeasure <-(2*Recall*Precision)/(Recall+Precision)
+
+####
+# CV法
+# 再度、mlr到来
+####
+> library(mlr)
+> library(kernlab)
+> data(spam)
+> task <- makeClassifTask(id="spam", data=spam, target="type")
+> learner <- makeLearner("classif.ksvm")
+> rdesc <- makeResampleDesc(method="CV", iters=10)
+> par.set <- makeParamSet(
+  +   makeDiscreteParam("C", values=2^(-2:2)),
+  +   makeDiscreteParam("sigma", values=2^(-2:2))
+  > )
+> ctrl <- makeTuneControlGrid()
+> res <- tuneParams("classif.ksvm", task=task, resampling=rdesc, par.set=par.set, control=ctrl)
+
