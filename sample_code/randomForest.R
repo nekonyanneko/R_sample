@@ -2,17 +2,17 @@ source("clear.R")
 library(randomForest)
 attach(iris)
 
-set.seed(1500)
+set.seed(2100)
 
 # random sampling
 n <- nrow(iris)
-s <- sample(n, n * 0.5)
+s <- sample(n, n * 0.7)
 ## 半分を学習、半分を評価に使う
 iris.train <- iris[s,]
 iris.test <- iris[-s,]
 
 ## ランダムフォレストで学習
-model <- randomForest(Species ~ ., data=iris.train, ntree=500, proximity=TRUE)
+model <- randomForest(Species ~ ., data=iris.train, mtry=4, ntree=500, proximity=TRUE)
 print(model)
 
 ## テストデータで評価

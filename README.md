@@ -16,11 +16,12 @@ Comming Soon.
 
 ```
 # Schedule
-Second Time 4/22(Saturday)13:00~
-Third Time 4/29(Saturday)13:00~
+Forth Time 5/6 or 5/7
 
 # Paste
 First Time 4/8(Saturday)13:00~16:00
+Second Time 4/22(Saturday)13:00~16:00
+Third Time 4/29(Saturday)13:00~16:00
 
 ```
 
