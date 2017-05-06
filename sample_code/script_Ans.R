@@ -14,11 +14,46 @@ data_crensing <- function(input_data){
   input_data$Fare <- matrix(input_data$Fare) %>% impute(what = "median")
   input_data$Age  <- matrix(input_data$Age)  %>% impute(what = "mean")
 
-  input_data <- input_data[,-which (colnames(input_data) %in% 
-                            c("Name","Title","Cabin","Ticket","Embarked","PassengerId","SibSp","Parch","Pclass"))]
+  # Data Processing (Add Title)
+  input_data$Title <- gsub('(.*, )|(\\..*)', '', input_data$Name)
+  input_data$Miss[input_data$Title == "Miss"] <- 1; input_data$Miss[is.na(input_data$Miss)] <- 0
+  input_data$Mr[input_data$Title == "Mr"]     <- 1; input_data$Mr[is.na(input_data$Mr)]     <- 0
+  input_data$Mrs[input_data$Title == "Mrs"]   <- 1; input_data$Mrs[is.na(input_data$Mrs)]   <- 0
+  input_data$Embarked_S[input_data$Embarked == "S"] <- 1; input_data$Embarked_S[is.na(input_data$Embarked_S)] <- 0
+  input_data$SibSpAndParch <- input_data$SibSp + input_data$Parch
+  input_data$Cabin2 <- gsub('([A-Z].*)', '1', input_data$Cabin)
+  input_data$Cabin2[input_data$Cabin2 == ""] <- 0
 
+  # Fare/Age log scale
+  input_data$Age <- as.integer(input_data$Age)
+  input_data$Age[0  <= input_data$Age & input_data$Age < 10] <- 0
+  input_data$Age[10 <= input_data$Age & input_data$Age < 20] <- 10
+  input_data$Age[20 <= input_data$Age & input_data$Age < 30] <- 20
+  input_data$Age[30 <= input_data$Age & input_data$Age < 40] <- 30
+  input_data$Age[40 <= input_data$Age] <- 40
+  input_data$Fare <- as.integer(input_data$Fare)
+  input_data$Fare <- log(input_data$Fare+1) # +1 is not -Inf
+
+  for(i in 0:9){
+    for(j in 0:9){
+      for(z in 0:9){
+        for(l in 0:9){
+          target <- paste(c(as.character(i), as.character(j), as.character(z),as.character(l)), collapse = "")
+          label  <- target
+          target <- paste(c(as.character(target), ".*"), collapse = "")
+          input_data$Tiket2[regexpr(target, input_data$Ticket) != -1] <- label
+        }
+      }
+    }
+  }
+  input_data$Tiket2[is.na(input_data$Tiket2)] <- 0
+
+  # Delete Data (PassengerId,Name)
+  input_data <- input_data[,-which (colnames(input_data) %in% 
+                            c("Name","Title","Cabin","Ticket","Embarked","PassengerId","SibSp","Parch","Title"
+                              ,"Mr","Miss","Embarked_S"))]
   input_data[,"Survived"] <- as.factor(input_data[,"Survived"])
-  input_data[,"Sex"]      <- as.factor(input_data[,"Sex"])
+  input_data[,"Sex"] <- as.factor(input_data[,"Sex"])
 
   return(input_data)
 }
@@ -44,7 +79,7 @@ predict_randomForest <- function(tune,data){
   plot(perf)
   auc.tmp <- performance(pred,"auc")
   auc <- as.numeric(auc.tmp@y.values)
-  print("[tune-data] AUC:ß")
+  print("[tune-data] AUC:")
   print(auc)
 }
 
